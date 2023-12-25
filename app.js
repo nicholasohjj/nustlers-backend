@@ -19,4 +19,4 @@ app.get('/', (req, res) => {
 
 app.use('/markers', markersRoutes);
 
-module.exports = app;
+module.exports = app

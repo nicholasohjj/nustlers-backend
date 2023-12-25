@@ -30,13 +30,13 @@ const markerSchema = Joi.object({
 
 const getMarkers = async (req, res) => {
   const command = new ScanCommand({
-    TableName: "test",
+    TableName: "markers",
   });
 
   try {
     const response = await docClient.send(command);
     console.log("Query succeeded.", response);
-    res.json(response);
+    res.json(response.Items);
   } catch (err) {
     console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
     res.status(500).json(err);
@@ -54,7 +54,7 @@ const addMarker = async (req, res) => {
     const id = uuidv4();
 
     const command = new PutCommand({
-      TableName: "test",
+      TableName: "markers",
       Item: {
         id,
         coordinate,
