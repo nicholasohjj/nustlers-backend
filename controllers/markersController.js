@@ -89,7 +89,7 @@ const addMarker = async (req, res) => {
 
 const deleteMarker = async (req, res) => {
   const { id } = req.params;
-
+  console.log("Deleting marker with id:", id)
   const command = new DeleteCommand({
     TableName: "markers",
     Key: {

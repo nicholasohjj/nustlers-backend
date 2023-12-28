@@ -4,20 +4,20 @@ const app = require('../app')
 const api = supertest(app)
 require('dotenv').config();
 
-const newMarker =   {
-    "coordinate": {
-      "latitude": 1.3047284337522933, 
-      "longitude": 103.77255425620469
-    },
-    "title": "Waa Cow!",
-    "image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Waa-Cow-1-1024x684.jpg",
-    "operating_hours": {
-      "term": "Mon-Fri, 11.30am-8.30pm, Sat/Sun/PH, 12.00pm-8.30pm",
-      "vacation": "Mon-Fri, 11.30am-8.30pm, Sat/Sun/PH, 12.00pm-8.30pm"
-    },
-    "stalls": 0
-  }
+const newMarker =  {
+  "coordinate": {
+  "latitude": 1.304058528310359,
+  "longitude": 103.77410520887246
+  },
+  "image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Hwangs-UTown-1024x684.jpg",
+  "title": "Hwang’s Korean Restaurant",
+  "operating_hours": {
+  "term": "Mon-Sat, 10.30am-9.00pm; Sun closed",
+  "vacation": "Mon-Sat, 10.30am-9.00pm; Sun closed"
+  },
+  "stalls": 0
 
+  }
 
 test('/ returns "Hello world"', async () => {
     await api
