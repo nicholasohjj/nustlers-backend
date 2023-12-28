@@ -10,9 +10,12 @@ const newMarker =   {
       "longitude": 103.77255425620469
     },
     "title": "Waa Cow!",
-    "description": "Waa Cow! is a arestaurant located at the first level.",
-    "image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Waa-Cow-1-1024x684.jpg"
-
+    "image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Waa-Cow-1-1024x684.jpg",
+    "operating_hours": {
+      "term": "Mon-Fri, 11.30am-8.30pm, Sat/Sun/PH, 12.00pm-8.30pm",
+      "vacation": "Mon-Fri, 11.30am-8.30pm, Sat/Sun/PH, 12.00pm-8.30pm"
+    },
+    "stalls": 0
   }
 
 

@@ -26,8 +26,12 @@ const markerSchema = Joi.object({
     longitude: Joi.number().required(),
   }).required(),
   title: Joi.string().required(),
-  description: Joi.string().required(),
   image: Joi.string().uri().required(),
+  operating_hours: Joi.object({
+    term: Joi.string().required(),
+    vacation: Joi.string().required(),
+  }).required(),
+  stalls: Joi.number().required(),
 });
 
 let redisClient;
@@ -51,11 +55,13 @@ const getMarkers = async (req, res) => {
 const addMarker = async (req, res) => {
   const { error, value } = markerSchema.validate(req.body);
   if (error) {
+    console.log("Invalid marker:", error);
+
     console.error("Invalid marker:", error);
     return res.status(400).json({ error: "Invalid marker" });
   }
 
-  const { coordinate, title, description, image } = value;
+  const { coordinate, title, description, image, operating_hours, stalls } = value;
   const id = uuidv4();
 
   const command = new PutCommand({
@@ -66,6 +72,8 @@ const addMarker = async (req, res) => {
       title,
       description,
       image,
+      operating_hours,
+      stalls
     },
   });
 
@@ -79,7 +87,28 @@ const addMarker = async (req, res) => {
   }
 };
 
+const deleteMarker = async (req, res) => {
+  const { id } = req.params;
+
+  const command = new DeleteCommand({
+    TableName: "markers",
+    Key: {
+      id,
+    },
+  });
+
+  try {
+    const response = await docClient.send(command);
+    console.log("Delete marker succeeded.", response);
+    res.json({ id });
+  } catch (err) {
+    console.error("Unable to delete marker. Error:", JSON.stringify(err, null, 2));
+    res.status(500).json(err);
+  }
+}
+
 module.exports = {
   getMarkers,
   addMarker,
+  deleteMarker
 };

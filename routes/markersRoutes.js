@@ -4,6 +4,7 @@ const markersController = require('../controllers/markersController');
 
 router.get('/', markersController.getMarkers);
 router.post('/', markersController.addMarker);
+router.delete('/:id', markersController.deleteMarker);
 
 module.exports = router;
     
