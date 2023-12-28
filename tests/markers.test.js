@@ -19,6 +19,8 @@ const newMarker =  {
 
   }
 
+let markerId = '';
+
 test('/ returns "Hello world"', async () => {
     await api
         .get('/')
@@ -49,5 +51,16 @@ test('a valid marker can be added ', async () => {
         .send(newMarker)
         .expect(200)
         .expect('Content-Type', /application\/json/)
-}
+
+    const response = await api.get('/markers/');
+    const contents = response.body;
+    markerId = contents[contents.length - 1].id;
+    }
+)
+
+test('a valid marker can be deleted ', async () => {
+    await api
+        .delete(`/markers/${markerId}`)
+        .expect(200)
+    }
 )

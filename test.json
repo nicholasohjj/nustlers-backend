@@ -1,0 +1,43 @@
+{
+      transaction_id: "sample_id"
+      location_id: "12345",
+      stall_id: "54321",
+      items: [
+{
+        item_id: "sample_id",
+        name: "sample_name",
+        price: 12345,
+        quantity: 12345,
+        total_price: 12345
+},
+{
+        item_id: "sample_id",
+        name: "sample_name",
+        price: 12345,
+        quantity: 12345,
+        total_price: 12345
+}
+],
+      queuer_id: "12345543"
+      queuer_mobile: "87654321",
+      buyer_id: "12345678",
+      buyer_mobile: "98765432",
+      status: {
+        paid: false,
+        collected: false,
+        cancelled: false,
+        refunded: false,
+        completed: false
+        delivered: false
+      },
+      fee: 1.0
+      total_cost: 13.5,
+      pick_up_point: [{
+        id: "sample_id",
+        name: "sample_name",
+        location: {
+          latitude: 1.2345,
+          longitude: 1.2345
+        }
+      }]
+}

@@ -11,7 +11,6 @@ const {
   QueryCommand,
 } = require("@aws-sdk/lib-dynamodb");
 
-const redis = require("redis");
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION,
@@ -33,8 +32,6 @@ const markerSchema = Joi.object({
   }).required(),
   stalls: Joi.number().required(),
 });
-
-let redisClient;
 
 
 const getMarkers = async (req, res) => {
