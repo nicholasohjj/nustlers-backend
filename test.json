@@ -1,43 +1,39 @@
-{
-    "transaction_id": "4f000cb8-b5a6-4d56-8785-8f7452252f04",
-    "buyer_id": "",
-    "buyer_mobile": "99887766",
-    "buyer_name": "toktok",
-    "destination": {
-    "coordinate": {
-    "latitude": 1.293456,
-    "longitude": 103.782345
-    },
-    "title": "UTown Green"
-    },
-    "feePerItem": 0.75,
-    "items_ids": [
-    "item_9",
-    "item_10",
-    "item_11"
-    ],
-    "max_items": 5,
-    "queuer_id": "b9876543",
-    "queuer_mobile": "82345678",
-    "queuer_name": "Jane Smith",
-    "stall": {
-    "coordinate": {
-    "latitude": 1.295678,
-    "longitude": 103.778901
-    },
-    "stall_id": "e037d7af-28f9-4a1d-bf17-533b0dc38eec",
-    "stall_image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2021/10/20211004_153136-e1634090653126-1024x882.jpg",
-    "stall_name": "Subway"
-    },
-    "status": {
-    "cancelled": false,
-    "collected": false,
-    "completed": false,
-    "delivered": false,
-    "paid": false,
-    "refunded": false
-    },
-    "total_cost": 0,
-    "tm_created": "2019-03-20T10:00:00",
-    "tm_updated": "2019-03-20T10:00:00"
-    },
+    {
+        "transaction_id": "7c252837-b4da-40bd-84a4-c8c98e4285e9",
+        "buyer_id": "",
+        "buyer_mobile": null,
+        "buyer_name": null,
+        "destination": {
+        "coordinate": {
+        "latitude": 1.297365,
+        "longitude": 103.776824
+        },
+        "title": "RVRC Seminar room 1"
+        },
+        "feePerItem": 0.288,
+        "items_ids": [],
+        "max_items": 2,
+        "queuer_id": "d5737cdf-48ba-47fa-b324-936f16d83169",
+        "queuer_mobile": "87654321",
+        "queuer_name": "123456789",
+        "stall": {
+        "coordinate": {
+        "latitude": 1.297365,
+        "longitude": 103.776824
+        },
+        "stall_id": "stall_2",
+        "stall_image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2021/10/20211004_153136-e1634090653126-1024x882.jpg",
+        "stall_name": "Yong Tau Foo"
+        },
+        "status": {
+        "cancelled": false,
+        "collected": false,
+        "completed": false,
+        "delivered": false,
+        "paid": false,
+        "refunded": false
+        },
+        "total_cost": 0,
+        "tm_created": "2019-03-20T10:00:00",
+        "tm_updated": "2019-03-20T10:00:00"
+        },

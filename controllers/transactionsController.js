@@ -35,25 +35,26 @@ const addTransaction = async (req, res) => {
 
 const updateTransaction = async (req, res) => {
     const { value, error } = transactionSchema.validate(req.body);
-
+    console.log("value", value)
     if (error) {
       console.log("Invalid transaction:", error);
   
       console.error("Invalid transaction:", error);
       return res.status(400).json({ error: "Invalid transaction" });
     }
-    logger.info("Updating transaction with id:", req.params.transaction_id)
+    console.log("req.params.transaction_id", value.transaction_id)
 
-    const transaction_id = req.body.transaction_id
+    const transaction_id = value.transaction_id
 
 
     try {
     const response = await supabase
       .from("transactions")
-      .upsert([{ ...value, transaction_id: req.params.transaction_id }]);
+      .upsert([{ ...value, transaction_id }]);
     res.json(response);
-    console.log("Updated row, transaction id: ", req.params.transaction_id);
+    console.log("Updated row, transaction id: ",transaction_id);
   } catch (error) {
+    logger.error("Unable to update row. Error:", JSON.stringify(error, null, 2));
     res.status(400).json({ error: error.message });
   }
 };

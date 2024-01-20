@@ -50,7 +50,6 @@ const destinationSchema = Joi.object({
   title: Joi.string().required(),
 });
 
-
 const transactionSchema = Joi.object({
     transaction_id: Joi.string(),
     stall: stallSchema.required(),
