@@ -6,5 +6,4 @@ router.get('/', itemsController.getItems);
 router.post('/add', itemsController.addItem);
 router.post('/adds', itemsController.addItems);
 
-
 module.exports = router;
