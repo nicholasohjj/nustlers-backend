@@ -24,6 +24,7 @@ const stallSchema = Joi.object({
   }).required(),
   stall_image: Joi.string().uri().required(),
   stall_name: Joi.string().required(),
+  items_ids: Joi.array().items(Joi.string()), // Updated line
 });
 
 const itemSchema = Joi.object({
@@ -56,10 +57,10 @@ const transactionSchema = Joi.object({
     items_ids: Joi.array().items(Joi.string()), // Updated line
     max_items: Joi.number().positive().required(),
     queuer_id: Joi.string().required(),
-    queuer_mobile: Joi.string().pattern(phoneRegex).required(),
+    queuer_mobile: Joi.number().required(),
     queuer_name: Joi.string().required(),
     buyer_id: Joi.string().allow(null),
-    buyer_mobile: Joi.string().pattern(phoneRegex).allow(null),
+    buyer_mobile: Joi.number().allow(null),
     buyer_name: Joi.string().allow(null),
     status: statusSchema.required(),
     feePerItem: Joi.number().required(),
