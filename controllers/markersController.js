@@ -43,9 +43,9 @@ const addMarkers = async (req, res) => {
     // Insert new information 
     console.log("This is the validated body values", value);
 
-    // const { data, errors } = await supabase
-    //     .from('markers')
-    //     .insert(value)
+    const { data, errors } = await supabase
+        .from('markers')
+        .insert(value)
 }
 
 
