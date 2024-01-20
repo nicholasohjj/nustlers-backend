@@ -1,44 +1,41 @@
 const Joi = require("joi");
 const { v4: uuidv4 } = require("uuid");
 const supabase = require("../supabase/supabase");
-
-const canteenSchema = Joi.object({
-  canteen_id: Joi.string().required(),
-  canteen_name: Joi.string().required(),
-  canteen_stalls_id: Joi.string().required(),
-  canteen_image: Joi.string().uri().required(),
-});
-
+const { canteenSchema } = require("../schema");
 
 const getCanteens = async (req, res) => {
-  const { data, error } = await supabase.from("canteens").select("*");
+  try {
+    const { data, error } = await supabase.from("canteens").select("*");
+    if (error) throw error;
 
-  res.json(data);
-};
+    if (data.length === 0) {
+      return res.status(404).json({ message: "No canteens found" });
+    }
 
-const addCanteen = async (canteen) => {
-  const { value, error } = canteenSchema.validate(canteen);
-  console.log("This is the Request body", canteen);
-  if (error) {
-    console.log("Error:", error);
-    // sorry nicoh im commenting this out
-    // return res.status(400).json({ error: "Invalid canteen" });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-  console.log("This is the validated body values", value);
-
-  const { data, errors } = await supabase.from("canteens").insert(value);
 };
 
-const addCanteens = async (req, res) => {
-  const canteens = req.body;
-  const addCanteenPromises = canteens.map((canteen) => addCanteen(canteen));
-  Promise.all(addCanteenPromises);
+const getCanteenById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { data, error } = await supabase
+      .from("canteens")
+      .select("*")
+      .eq("canteen_id", id);
+    if (error) throw error;
+    if (data.length === 0) {
+      return res.status(404).json({ message: "No canteens found" });
+    }
+    res.json(data[0]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
-
-
 
 module.exports = {
   getCanteens,
-  addCanteens,
-  addCanteen,
+  getCanteenById,
 };

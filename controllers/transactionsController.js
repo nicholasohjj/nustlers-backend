@@ -13,6 +13,51 @@ const getTransactions = async (req, res) => {
   }
 };
 
+const getTransactionsByUserId = async (req, res) => {
+  const { id } = req.params;
+  logger.info("Getting transactions by user id:", id);
+  try {
+    const { data, error } = await supabase
+      .from("transactions")
+      .select("*")
+      .or(`buyer_id.eq.${id},queuer_id.eq.${id}`);
+
+    logger.info("Supabase response:", { data, error }); // Enhanced logging
+
+    if (error) throw error;
+    if (data.length === 0) {
+      return res.status(404).json({ message: "No transactions found for this user." });
+    }
+    res.json(data);
+  } catch (error) {
+    logger.error("Error fetching transactions by user id:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getTransactionsByStallId = async (req, res) => {
+  const { id } = req.params;
+  logger.info("Getting transactions by stall id:", id);
+  try {
+    const { data, error } = await supabase
+      .from("transactions")
+      .select("*")
+      .eq("stall->>stall_id", id); // Querying a nested JSON object
+
+    logger.info("Supabase response:", { data, error }); // Enhanced logging
+
+    if (error) throw error;
+    if (data.length === 0) {
+      return res.status(404).json({ message: "No transactions found for this stall." });
+    }
+    res.json(data);
+  } catch (error) {
+    logger.error("Error fetching transactions by stall id:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 const addTransaction = async (req, res) => {
     const { value, error } = transactionSchema.validate(req.body);
     if (error) {
@@ -41,15 +86,12 @@ const updateTransaction = async (req, res) => {
     const { value, error } = transactionSchema.validate(req.body);
     console.log("value", value)
     if (error) {
-      console.log("Invalid transaction:", error);
-  
       console.error("Invalid transaction:", error);
       return res.status(400).json({ error: "Invalid transaction" });
     }
     console.log("req.params.transaction_id", value.transaction_id)
 
     const transaction_id = value.transaction_id
-
 
     try {
     const now = new Date();
@@ -62,8 +104,9 @@ const updateTransaction = async (req, res) => {
     res.json(response);
     console.log("Updated row, transaction id: ",transaction_id);
   } catch (error) {
+    const message = error.message + "Unable to update row.";
     logger.error("Unable to update row. Error:", JSON.stringify(error, null, 2));
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: message });
   }
 };
 
@@ -86,6 +129,8 @@ const deleteTransaction = async (req, res) => {
 
 module.exports = {
   getTransactions,
+  getTransactionsByUserId,
+  getTransactionsByStallId,
   addTransaction,
   updateTransaction,
   deleteTransaction,

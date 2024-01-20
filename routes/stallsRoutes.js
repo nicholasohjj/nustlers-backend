@@ -3,7 +3,6 @@ const router = express.Router();
 const stallsController = require("../controllers/stallsController");
 
 router.get("/", stallsController.getStalls);
-router.post("/add", stallsController.addStall);
-router.post("/adds", stallsController.addStalls);
+router.get("/canteen", stallsController.getStallsById);
 
 module.exports = router;
