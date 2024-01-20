@@ -32,8 +32,37 @@ const addTransactions = async (req, res) => {
 
 }
 
+
+const updateTransactions = async (req, res) =>{
+    // updates new information through transaction id
+    const { value } = transactionSchema.validate(req.body);
+    const {updatedData, errors} = await supabase
+        .from('transactions')
+        .upsert([{ ...value, transaction_id: req.params.transaction_id }]);
+
+    res.json(updatedData);
+    return console.log("Updated row, transaction id: ", req.params.transactions_id);
+
+}
+
+
+const delTransaction = async (req, res) => {
+    // deletes a transaction post
+    const { error } = await supabase
+        .from('transactions')
+        .delete()
+        .eq('transaction_id', req.params.transaction_id);
+    
+        if (error){
+            return console.log("Error: ", error);
+        }
+        return console.log("Deleted row!");
+}
+
 module.exports = {
     getTransactions,
     addTransaction,
-    addTransactions
+    addTransactions,
+    updateTransactions,
+    delTransaction
 }
