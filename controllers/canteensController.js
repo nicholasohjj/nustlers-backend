@@ -1,12 +1,12 @@
 const Joi = require("joi");
-const {v4 : uuidv4} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const supabase = require("../supabase/supabase");
 
 const canteenSchema = Joi.object({
-  canteen_id : Joi.string().required(),
-  canteen_name : Joi.string().required(),
-  canteen_stalls_id : Joi.string().required(),
-  canteen_image : Joi.string().uri().required(),
+  canteen_id: Joi.string().required(),
+  canteen_name: Joi.string().required(),
+  canteen_stalls_id: Joi.string().required(),
+  canteen_image: Joi.string().uri().required(),
 });
 
 // Trial get info
@@ -20,13 +20,13 @@ const canteenSchema = Joi.object({
 // }
 
 const getCanteens = async (req, res) => {
-  const {data, error} = await supabase.from("canteens").select("*");
+  const { data, error } = await supabase.from("canteens").select("*");
 
   res.json(data);
 };
 
 const addCanteen = async (canteen) => {
-  const {value, error} = canteenSchema.validate(canteen);
+  const { value, error } = canteenSchema.validate(canteen);
   console.log("This is the Request body", canteen);
   if (error) {
     console.log("Error:", error);
@@ -40,7 +40,7 @@ const addCanteen = async (canteen) => {
   // Insert new information
   console.log("This is the validated body values", value);
 
-  const {data, errors} = await supabase.from("canteens").insert(value);
+  const { data, errors } = await supabase.from("canteens").insert(value);
 };
 
 const addCanteens = async (req, res) => {
