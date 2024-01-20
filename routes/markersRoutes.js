@@ -6,5 +6,4 @@ router.get('/', markersController.getMarkers);
 router.post('/add', markersController.addMarker);
 router.post('/adds', markersController.addMarkers);
 
-
 module.exports = router;

@@ -8,5 +8,4 @@ router.post('/adds', transactionsController.addTransactions)
 router.put("/:transaction_id", transactionsController.updateTransactions)
 router.delete("/:transaction_id", transactionsController.delTransaction)
 
-
 module.exports = router;
