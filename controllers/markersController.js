@@ -2,29 +2,7 @@ const Joi = require("joi");
 const { v4: uuidv4 } = require("uuid");
 const supabase = require("../supabase/supabase")
 
-const markerSchema = Joi.object({
-    coordinate: Joi.object({
-      latitude: Joi.number().required(),
-      longitude: Joi.number().required(),
-    }).required(),
-    marker_title: Joi.string().required(),
-    marker_image: Joi.string().uri().required(),
-    operating_hours: Joi.object({
-      term: Joi.string().required(),
-      vacation: Joi.string().required(),
-    }).required(),
-    stall_count: Joi.number().required(),
-});
-
-//Trial get info
-// const getInfo = async (req, res) => {
-//     const { data, error } = await supabase
-//         .from('test')
-//         .select('*')
-
-//     console.log("Data:", data)
-//     res.json(data);
-// }
+const markerSchema = require("../schema");
 
 const getMarkers = async (req, res) => {
     const {data, error} =  await supabase  
@@ -42,15 +20,12 @@ const addMarker = async (marker) => {
         console.log("Error:", error);
         return res.status(400).json({ error: "Invalid marker" });
     }
-    // Table params
-    //const {marker_image, stall_count, operating_hours, marker_title, coordinate, description} = value;
-    //
-    // Insert new information 
+
     console.log("This is the validated body values", value);
 
     const { data, errors } = await supabase
         .from('markers')
-        .insert(value)
+        .insert(value);
 }
 
 const addMarkers = async (req, res) => {
