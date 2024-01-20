@@ -28,8 +28,8 @@ const getStalls = async (req, res) => {
 
 const addStall = async (stall) => {
   // try{
-    const { value, error } = stallSchema.validate(stall);
-    console.log("This is the Request body", stall);
+  const { value, error } = stallSchema.validate(stall);
+  console.log("This is the Request body", stall);
   // }
   if (error) {
     console.log("Error:", error);
@@ -51,7 +51,7 @@ const addStalls = async (req, res) => {
     const addStallPromises = stalls.map((stall) => addStall(stall));
     Promise.all(addStallPromises);
   } catch {
-      return res.status(400).json({ error: "Invalid stall" });
+    return res.status(400).json({ error: "Invalid stall" });
   }
 };
 
