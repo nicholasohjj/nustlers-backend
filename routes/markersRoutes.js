@@ -4,5 +4,6 @@ const markersController = require('../controllers/markersController');
 
 router.get('/', markersController.getMarkers);
 router.get('/info', markersController.getInfo);
+router.get('/add', markersController.addMarkers);
 
 module.exports = router;
