@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express();
 const rateLimit = require('express-rate-limit');
 const markersRoutes = require('./routes/markersRoutes');
+const itemsRoutes = require('./routes/itemsRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -18,5 +19,6 @@ app.get('/', (req, res) => {
   });
 
 app.use('/markers', markersRoutes);
+app.use('/items', itemsRoutes);
 
 module.exports = app
