@@ -1,44 +1,43 @@
 const Joi = require("joi");
-const { v4: uuidv4 } = require("uuid");
-const supabase = require("../supabase/supabase")
-
+const supabase = require("../supabase/supabase");
 const markerSchema = require("../schema");
 
 const getMarkers = async (req, res) => {
-    const {data, error} =  await supabase  
-        .from('markers')
-        .select('*')
+  try {
+    const { data, error } = await supabase.from("markers").select("*");
+    if (error) throw error;
 
-    res.json(data)
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to retrieve markers" });
+  }
 };
 
 const addMarker = async (marker) => {
+  const { value, error } = markerSchema.validate(marker);
+  if (error) {
+    console.log("Validation Error:", error.details);
+    throw new Error("Invalid marker data");
+  }
 
-    const {value, error} = markerSchema.validate(marker);
-    console.log("This is the Request body",marker)
-    if (error){
-        console.log("Error:", error);
-        return res.status(400).json({ error: "Invalid marker" });
-    }
+  const { data, errors } = await supabase.from("markers").insert([value]);
+  if (errors) throw errors;
 
-    console.log("This is the validated body values", value);
-
-    const { data, errors } = await supabase
-        .from('markers')
-        .insert(value);
-}
+  return data;
+};
 
 const addMarkers = async (req, res) => {
-
-    const markers = req.body
-    const addMarkerPromises = markers.map(marker => addMarker(marker))
-    Promise.all(addMarkerPromises)
-
-}
-
+  try {
+    const markers = req.body;
+    const results = await Promise.all(markers.map((marker) => addMarker(marker)));
+    res.json(results);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
 module.exports = {
-    getMarkers,
-    addMarkers,
-    addMarker
+  getMarkers,
+  addMarkers,
+  addMarker,
 };
