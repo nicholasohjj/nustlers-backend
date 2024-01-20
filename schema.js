@@ -53,7 +53,7 @@ const destinationSchema = Joi.object({
 const transactionSchema = Joi.object({
     transaction_id: Joi.string(),
     stall: stallSchema.required(),
-    items_ids: Joi.array().items(Joi.string()).min(0).required(), // Updated line
+    items_ids: Joi.array().items(Joi.string()), // Updated line
     max_items: Joi.number().positive().required(),
     queuer_id: Joi.string().required(),
     queuer_mobile: Joi.string().pattern(phoneRegex).required(),
