@@ -16,7 +16,7 @@ const markerSchema = Joi.object({
     stall_count: Joi.number().required(),
 });
 
-
+//Trial get info
 // const getInfo = async (req, res) => {
 //     const { data, error } = await supabase
 //         .from('test')
@@ -27,7 +27,11 @@ const markerSchema = Joi.object({
 // }
 
 const getMarkers = async (req, res) => {
-    res.json('Hello World!');
+    const {data, error} =  await supabase  
+        .from('markers')
+        .select('*')
+
+    res.json(data)
 };
 
 const addMarker = async (marker) => {
@@ -60,7 +64,6 @@ const addMarkers = async (req, res) => {
 
 module.exports = {
     getMarkers,
-    getInfo,
     addMarkers,
     addMarker
 };

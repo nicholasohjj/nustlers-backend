@@ -8,7 +8,7 @@
 
 
 // To do 
-// getmarkers
+
 // create marker -- if else (create table if doesnt exist however if exist just pump)
 // getcanteens
 // getvenues
