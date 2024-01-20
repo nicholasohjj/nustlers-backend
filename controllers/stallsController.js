@@ -14,8 +14,7 @@ const getStalls = async (req, res) => {
 };
 
 const getStallsById = async (req, res) => {
-  const { ids } = req.body;
-  // Optional: Add validation for ids here
+  const ids = req.query.ids; // Assuming ids are passed as a query string
   try {
     const { data, error } = await supabase
       .from("stalls")
@@ -24,9 +23,12 @@ const getStallsById = async (req, res) => {
     if (error) throw error;
     res.json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Detailed Error:", error); // Log detailed error
+    res.status(500).json({ error: error.message, details: error });
   }
 };
+
+
 
 const addStall = async (req, res) => {
   const { value, error } = stallSchema.validate(req.body);
