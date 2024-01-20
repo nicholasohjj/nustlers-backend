@@ -1,5 +1,3 @@
-
-
 // Connect supabase to this code line
 // Get markers (Throw in all the restaurants and canteens , IDs)
 
