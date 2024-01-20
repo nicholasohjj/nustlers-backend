@@ -29,10 +29,10 @@ const getMarkers = async (req, res) => {
     res.json('Hello World!');
 };
 
-const addMarkers = async (req, res) => {
+const addMarker = async (marker) => {
 
-    const {value, error} = markerSchema.validate(req.body);
-    console.log("This is the Request body",req.body)
+    const {value, error} = markerSchema.validate(marker);
+    console.log("This is the Request body",marker)
     if (error){
         console.log("Error:", error);
         return res.status(400).json({ error: "Invalid marker" });
@@ -48,10 +48,18 @@ const addMarkers = async (req, res) => {
         .insert(value)
 }
 
+const addMarkers = async (req, res) => {
+
+    const markers = req.body
+    const addMarkerPromises = markers.map(marker => addMarker(marker))
+    Promise.all(addMarkerPromises)
+    
+}
 
 
 module.exports = {
     getMarkers,
     getInfo,
-    addMarkers
+    addMarkers,
+    addMarker
 };
