@@ -1,62 +1,82 @@
-const Joi = require("joi");
 const supabase = require("../supabase/supabase");
 const transactionSchema = require("../schema").transactionSchema;
+const logger = require("../utils/logger");
 
 const getTransactions = async (req, res) => {
-  const { data, error } = await supabase.from("transactions").select("*");
-
-  res.json(data);
-};
-
-const addTransaction = async (transc) => {
-  const { value, error } = transactionSchema.validate(transc);
-  console.log(value);
-  if (error) {
-    console.log("Error:", error);
+  logger.info("Getting transactions");
+  try {
+    const { data, error } = await supabase.from("transactions").select("*");
+    if (error) throw error;
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  const { data, errors } = await supabase.from("transactions").insert(value);
-
-  console.log(data);
 };
 
-const addTransactions = async (req, res) => {
-  const trans = req.body;
-  const addTransPromises = trans.map((tran) => addTransaction(tran));
-  Promise.all(addTransPromises);
-};
+const addTransaction = async (req, res) => {
+    const { value, error } = transactionSchema.validate(req.body);
+    if (error) {
+      console.log("Invalid transaction:", error);
+  
+      console.error("Invalid transaction:", error);
+      return res.status(400).json({ error: "Invalid transaction" });
+    }
+    logger.info("Adding transaction");
 
-const updateTransactions = async (req, res) => {
-  // updates new information through transaction id
-  const { value } = transactionSchema.validate(req.body);
-  const { updatedData, errors } = await supabase
-    .from("transactions")
-    .upsert([{ ...value, transaction_id: req.params.transaction_id }]);
+  try {
 
-  res.json(updatedData);
-  return console.log(
-    "Updated row, transaction id: ",
-    req.params.transactions_id
-  );
-};
-
-const delTransaction = async (req, res) => {
-  // deletes a transaction post
-  const { error } = await supabase
-    .from("transactions")
-    .delete()
-    .eq("transaction_id", req.params.transaction_id);
-
-  if (error) {
-    return console.log("Error: ", error);
+    await supabase.from("transactions").insert(value);
+    res.json({ message: "Added row!" });
+  } catch (error) {
+    console.error("Unable to add marker. Error:", JSON.stringify(error, null, 2));
+    res.status(500).json(error);
   }
-  return console.log("Deleted row!");
+};
+
+const updateTransaction = async (req, res) => {
+    const { value, error } = transactionSchema.validate(req.body);
+
+    if (error) {
+      console.log("Invalid transaction:", error);
+  
+      console.error("Invalid transaction:", error);
+      return res.status(400).json({ error: "Invalid transaction" });
+    }
+    logger.info("Updating transaction with id:", req.params.transaction_id)
+
+    const transaction_id = req.body.transaction_id
+
+
+    try {
+    const response = await supabase
+      .from("transactions")
+      .upsert([{ ...value, transaction_id: req.params.transaction_id }]);
+    res.json(response);
+    console.log("Updated row, transaction id: ", req.params.transaction_id);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const deleteTransaction = async (req, res) => {
+  const {transaction_id} = req.params
+  logger.info("Deleting transaction with id:", transaction_id )
+  try {
+    const response = await supabase
+      .from("transactions")
+      .delete()
+      .eq("transaction_id", transaction_id);
+
+    res.json({ message: "Deleted row!" });
+  } catch (error) {
+    console.error("Unable to delete row. Error:", JSON.stringify(error, null, 2));
+    res.status(400).json({ error: error.message });
+  }
 };
 
 module.exports = {
   getTransactions,
   addTransaction,
-  addTransactions,
-  updateTransactions,
-  delTransaction,
+  updateTransaction,
+  deleteTransaction,
 };
