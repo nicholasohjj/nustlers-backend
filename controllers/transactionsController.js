@@ -24,7 +24,9 @@ const addTransaction = async (req, res) => {
     logger.info("Adding transaction");
 
   try {
-
+    const currentDate = new Date().toISOString(); // ISO 8601 format
+    value.tm_created = currentDate;
+    value.tm_updated = currentDate;
     await supabase.from("transactions").insert(value);
     res.json({ message: "Added row!" });
   } catch (error) {
@@ -48,6 +50,8 @@ const updateTransaction = async (req, res) => {
 
 
     try {
+    const currentDate = new Date().toISOString(); // ISO 8601 format
+    value.tm_updated = currentDate;
     const response = await supabase
       .from("transactions")
       .upsert([{ ...value, transaction_id }]);
