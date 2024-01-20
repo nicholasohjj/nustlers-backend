@@ -5,6 +5,8 @@ const rateLimit = require("express-rate-limit");
 const markersRoutes = require("./routes/markersRoutes");
 const itemsRoutes = require("./routes/itemsRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
+const stallsRoutes = require("./routes/stallsRoutes");
+
 
 app.use(cors());
 app.use(express.json());
@@ -22,5 +24,7 @@ app.get("/", (req, res) => {
 app.use("/markers", markersRoutes);
 app.use("/items", itemsRoutes);
 app.use("/transactions", transactionRoutes);
+app.use("/stalls", stallsRoutes);
+
 
 module.exports = app;
