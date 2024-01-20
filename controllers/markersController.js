@@ -14,16 +14,17 @@ const markerSchema = Joi.object({
       vacation: Joi.string().required(),
     }).required(),
     stall_count: Joi.number().required(),
-  });
+});
 
-const getInfo = async (req, res) => {
-    const { data, error } = await supabase
-        .from('test')
-        .select('*')
 
-    console.log("Data:", data)
-    res.json(data);
-}
+// const getInfo = async (req, res) => {
+//     const { data, error } = await supabase
+//         .from('test')
+//         .select('*')
+
+//     console.log("Data:", data)
+//     res.json(data);
+// }
 
 const getMarkers = async (req, res) => {
     res.json('Hello World!');
@@ -53,7 +54,7 @@ const addMarkers = async (req, res) => {
     const markers = req.body
     const addMarkerPromises = markers.map(marker => addMarker(marker))
     Promise.all(addMarkerPromises)
-    
+
 }
 
 
