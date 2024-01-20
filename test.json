@@ -3,8 +3,8 @@
   "buyer_mobile": null,
   "buyer_name": null,
   "destination": {
-    "coordinate": { "latitude": 1.297392, "longitude": 103.776774 },
-    "title": "RVRC Seminar Rooms"
+    "coordinate": { "latitude": 1.292528, "longitude": 103.774369 },
+    "title": "BIZ1 EMBA Seminar Room 3-7"
   },
   "feePerItem": 0.2,
   "items_ids": [],
@@ -13,12 +13,11 @@
   "queuer_mobile": 87654321,
   "queuer_name": "123456789",
   "stall": {
-    "coordinate": { "latitude": 1.297392, "longitude": 103.776774 },
-    "cuisine": null,
-    "items_ids": ["b2011eb2-bfd8-4e69-8b8a-d21aaa4f10bf"],
-    "stall_id": "cd2389a4-53d8-4b77-8a61-f51e878140b1",
-    "stall_image": "https://fastly.4sqi.net/img/general/width960/234324_QtxzKYwuvpYozJwYl72c_AI_pymsGm6fnr48Cv06GfM.jpg",
-    "stall_name": "Tian Tian Chicken Rice"
+    "coordinate": { "latitude": 1.292528, "longitude": 103.774369 },
+    "items_ids": ["27eb7386-0248-400c-81ce-216de4bcebe2"],
+    "stall_id": "29cee400-4973-46d5-a7a9-673fdc791027",
+    "stall_image": "https://uci.nus.edu.sg/oca/wp-content/uploads/sites/9/2018/05/Hwangs-UTown-1024x684.jpg",
+    "stall_name": "Hwang’s Korean Restaurant"
   },
   "status": {
     "cancelled": false,

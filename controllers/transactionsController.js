@@ -62,8 +62,9 @@ const updateTransaction = async (req, res) => {
     res.json(response);
     console.log("Updated row, transaction id: ",transaction_id);
   } catch (error) {
+    const message = error.message + "Unable to update row.";
     logger.error("Unable to update row. Error:", JSON.stringify(error, null, 2));
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: message });
   }
 };
 
