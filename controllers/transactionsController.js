@@ -13,6 +13,29 @@ const getTransactions = async (req, res) => {
   }
 };
 
+const getTransactionsByUserId = async (req, res) => {
+  const { id } = req.params;
+  logger.info("Getting transactions by user id:", id);
+  try {
+    const { data, error } = await supabase
+      .from("transactions")
+      .select("*")
+      .or(`buyer_id.eq.${id},queuer_id.eq.${id}`);
+
+    logger.info("Supabase response:", { data, error }); // Enhanced logging
+
+    if (error) throw error;
+    if (data.length === 0) {
+      return res.status(404).json({ message: "No transactions found for this user." });
+    }
+    res.json(data);
+  } catch (error) {
+    logger.error("Error fetching transactions by user id:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 const addTransaction = async (req, res) => {
     const { value, error } = transactionSchema.validate(req.body);
     if (error) {
@@ -86,6 +109,7 @@ const deleteTransaction = async (req, res) => {
 
 module.exports = {
   getTransactions,
+  getTransactionsByUserId,
   addTransaction,
   updateTransaction,
   deleteTransaction,
