@@ -73,5 +73,6 @@ const transactionSchema = Joi.object({
 
 module.exports = {
     markerSchema,
-    transactionSchema
+    transactionSchema,
+    stallSchema
 }

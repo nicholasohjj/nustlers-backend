@@ -1,62 +1,49 @@
 const Joi = require("joi");
 const { v4: uuidv4 } = require("uuid");
 const supabase = require("../supabase/supabase");
-
-const stallSchema = Joi.object({
-  stall_id: Joi.string().required(),
-  stall_name: Joi.string().required(),
-  stall_cuisine: Joi.string().required(),
-  stall_image: Joi.string().uri().required(),
-  items_ids: Joi.number().positive().required(),
-});
-
-// Trial get info
-//  const getInfo = async (req, res) => {
-//      const { data, error } = await supabase
-//          .from('test')
-//          .select('*')
-
-//     console.log("Data:", data)
-//     res.json(data);
-// }
+const { stallSchema } = require("../schema");
 
 const getStalls = async (req, res) => {
-  const { data, error } = await supabase.from("stalls").select("*");
-
-  res.json(data);
+  try {
+    const { data, error } = await supabase.from("stalls").select("*");
+    if (error) throw error;
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const addStall = async (stall) => {
-  // try{
-    const { value, error } = stallSchema.validate(stall);
-    console.log("This is the Request body", stall);
-  // }
+const getStallsById = async (req, res) => {
+  const { ids } = req.body;
+  // Optional: Add validation for ids here
+  try {
+    const { data, error } = await supabase
+      .from("stalls")
+      .select("*")
+      .in("stall_id", ids);
+    if (error) throw error;
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const addStall = async (req, res) => {
+  const { value, error } = stallSchema.validate(req.body);
   if (error) {
     console.log("Error:", error);
-    // return res.status(400).json({ error: "Invalid stall" });
+    return res.status(400).json({ error: "Invalid stall" });
   }
-  // Table params
-  // const {marker_image, stall_count, operating_hours, marker_title,
-  // coordinate, description} = value;
-  //
-  // Insert new information
-  console.log("This is the validated body values", value);
-
-  const { data, errors } = await supabase.from("stalls").insert(value);
-};
-
-const addStalls = async (req, res) => {
   try {
-    const stalls = req.body;
-    const addStallPromises = stalls.map((stall) => addStall(stall));
-    Promise.all(addStallPromises);
-  } catch {
-      return res.status(400).json({ error: "Invalid stall" });
+    const { data, errors } = await supabase.from("stalls").insert(value);
+    if (errors) throw errors;
+    res.json({ message: "Stall added successfully", data });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
   getStalls,
-  addStalls,
-  addStall,
+  getStallsById,
 };
