@@ -42,7 +42,7 @@ const getTransactionsByStallId = async (req, res) => {
     const { data, error } = await supabase
       .from("transactions")
       .select("*")
-      .eq("stall.stall_id", id);
+      .eq("stall->>stall_id", id); // Querying a nested JSON object
 
     logger.info("Supabase response:", { data, error }); // Enhanced logging
 

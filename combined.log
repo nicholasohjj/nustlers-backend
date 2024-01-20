@@ -2,3 +2,6 @@
 {"level":"info","message":"Getting transactions"}
 {"level":"info","message":"Getting transactions"}
 {"level":"info","message":"Getting transactions"}
+{"level":"info","message":"Getting transactions by stall id:"}
+{"data":null,"error":{"code":"42883","details":null,"hint":"No operator matches the given name and argument types. You might need to add explicit type casts.","message":"operator does not exist: json = unknown"},"level":"info","message":"Supabase response:"}
+{"code":"42883","details":null,"hint":"No operator matches the given name and argument types. You might need to add explicit type casts.","level":"error","message":"Error fetching transactions by stall id: operator does not exist: json = unknown"}
