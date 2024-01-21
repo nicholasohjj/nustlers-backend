@@ -28,15 +28,19 @@ Welcome to the backend repository for our Hack&Roll project! This project is des
 
 5. Install the required packages:
 
-    `npm install`
+    ```
+   npm install
+    ```
 
-6. Start the server:
+7. Start the server:
 
-    `npm start`
+    ```
+   npm start
+    ```
 
-7. Use specified app routes to great GET and POST requests
+9. Use specified app routes to great GET and POST requests
 
-    For example, `http://localhost:3000/markers` will return a json file containing data from the table "markers"
+    For example, ```http://localhost:3000/markers``` will return a json file containing data from the table "markers"
     
 ## Usage
 
