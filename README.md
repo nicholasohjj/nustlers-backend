@@ -49,3 +49,7 @@ Using Supabase, we enhance data integrity with input and output validation, whil
 ## Contributing
 
 We welcome contributions! If you have suggestions or want to contribute, feel free to create a pull request or open an issue.
+
+----------
+
+Happy Ordering and Hustling with Nustle!
