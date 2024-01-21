@@ -16,24 +16,23 @@ Welcome to the backend repository for our Hack&Roll project! This project is des
 
 1. Clone the repository:
 
-    git clone https://github.com/nicholasohjj/hacknroll-backend.git
+    `git clone https://github.com/nicholasohjj/hacknroll-backend.git`
 
 2. Navigate to the project directory:
 
-    cd hacknroll-backend
+    `cd hacknroll-backend`
 
 3. Install the required packages:
 
-    npm install
+    `npm install`
 
 4. Start the server:
 
-    npm start
+    `npm start`
 
 5. Use specified app routes to great GET and POST requests
 
-    http://localhost:3000/markers
-Will return a json file containing data from the table "markers"
+    For example, `http://localhost:3000/markers` will return a json file containing data from the table "markers"
     
 ## Usage
 
