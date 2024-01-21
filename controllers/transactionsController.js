@@ -26,7 +26,8 @@ const getTransactionsByUserId = async (req, res) => {
 
     if (error) throw error;
     if (data.length === 0) {
-      return res.status(404).json({ message: "No transactions found for this user." });
+
+      return res.json([]);
     }
     res.json(data);
   } catch (error) {
