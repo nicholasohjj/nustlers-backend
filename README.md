@@ -16,15 +16,15 @@ Welcome to the backend repository for our Hack&Roll project! This project is des
 
 1. Clone the repository:
 
-    `
-   git clone https://github.com/nicholasohjj/hacknroll-backend.git
-   `
+    ```
+    git clone https://github.com/nicholasohjj/hacknroll-backend.git
+   ```
 
 3. Navigate to the project directory:
 
-    `
+    ```
    cd hacknroll-backend
-   `
+   ```
 
 5. Install the required packages:
 
