@@ -15,17 +15,26 @@ Welcome to the backend repository for our Hack&Roll project! This project is des
 ### Installation
 
 1. Clone the repository:
-git clone https://github.com/nicholasohjj/hacknroll-backend.git
+
+    git clone https://github.com/nicholasohjj/hacknroll-backend.git
 
 2. Navigate to the project directory:
-cd hacknroll-backend
+
+    cd hacknroll-backend
 
 3. Install the required packages:
-npm install
+
+    npm install
 
 4. Start the server:
-npm start
 
+    npm start
+
+5. Use specified app routes to great GET and POST requests
+
+    http://localhost:3000/markers
+Will return a json file containing data from the table "markers"
+    
 ## Usage
 
 Using Supabase, we enhance data integrity with input and output validation, while ensuring security through the implementation of two-factor authentication (2FA).
